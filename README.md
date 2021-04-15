@@ -1,3 +1,3 @@
 # f1-gql
 
-A GraphQL wrapper over the ergast.com Formula 1 API
+A GraphQL wrapper over the [ergast.com](http://ergast.com/mrd/) Formula 1 API
