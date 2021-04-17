@@ -1,8 +1,15 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
+  enum RacingSeries {
+    "Formula 1"
+    f1
+  }
+
   type CircuitLocation {
+    "Latitude"
     lat: String
+    "Longitude"
     long: String
     locality: String
     country: String
@@ -26,7 +33,7 @@ const typeDefs = gql`
   type Driver {
     driverId: ID
     number: String
-    # RIC, HAM, VER
+    "RIC, HAM, VER"
     code: String
     firstName: String
     lastName: String
@@ -40,20 +47,21 @@ const typeDefs = gql`
   }
 
   type RaceCompetitorFastestLapAverageSpeed {
-    # kph
+    "kph"
     units: String
-    # "207.235"
+    "207.235"
     speed: String
   }
 
   type RaceCompetitorFastestLap {
     rank: String
     lap: String
-    # "1:34.015"
+    "1:34.015"
     time: String
     averageSpeed: RaceCompetitorFastestLapAverageSpeed
   }
 
+  "Competitor in a race"
   type RaceCompetitor {
     id: ID
     number: String
@@ -69,21 +77,21 @@ const typeDefs = gql`
     fastestLap: RaceCompetitorFastestLap
   }
 
+  "Race results report"
   type RaceReport {
-    # f1
-    series: String
-    # current, 2021, 2008
+    series: RacingSeries
+    "current, 2021, 2008"
     season: String
-    # last, 2
+    "last, 2"
     round: String
-    # Wikipedia URL
+    "Wikipedia URL"
     url: String
-    # Bahrain Grand Prix
+    "Bahrain Grand Prix"
     raceName: String
     circuit: Circuit
-    # 2021-03-28
+    "2021-03-28"
     date: String
-    # 15:00:00Z
+    "15:00:00Z"
     time: String
     results: [RaceCompetitor]
   }
@@ -94,7 +102,7 @@ const typeDefs = gql`
     wins: String
     number: String
     driverId: ID
-    # PER
+    "PER"
     code: String
     firstName: String
     lastName: String
@@ -110,25 +118,38 @@ const typeDefs = gql`
     team: Constructor
   }
 
+  "Leaderboard for the Formula 1 Drivers Championship"
   type DriverStandingsReport {
-    series: String
+    series: RacingSeries
+    "e.g. current, 2021, 2008"
     season: String
+    "e.g. last, 1, 12"
     round: String
     drivers: [F1DriverStandingsDriver]
   }
 
+  "Leaderboard for the Formula 1 Contstructors Championship"
   type ConstructorStandingsReport {
-    series: String
+    series: RacingSeries
+    "e.g. current, 2021, 2008"
     season: String
+    "e.g. last, 1, 12"
     round: String
     teams: [ConstructorStandingsTeam]
   }
 
+  input ReportInput {
+    "e.g. current, 2021, 2008"
+    season: String
+    "e.g. last, 1, 12"
+    round: String
+  }
+
   type Query {
     hello: String
-    Results: RaceReport
-    DriverStandings: DriverStandingsReport
-    ConstructorStandings: ConstructorStandingsReport
+    Results(input: ReportInput): RaceReport
+    DriverStandings(input: ReportInput): DriverStandingsReport
+    ConstructorStandings(input: ReportInput): ConstructorStandingsReport
   }
 `;
 

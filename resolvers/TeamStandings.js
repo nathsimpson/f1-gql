@@ -1,7 +1,13 @@
 const { teamsColors } = require("../utils");
 
-const F1TeamStandingsResolver = async (_source, _, { dataSources }) => {
-  const URL = "/f1/current/constructorStandings.json";
+const TeamStandingsResolver = async (
+  _source,
+  { input = {} },
+  { dataSources }
+) => {
+  const season = input.season || "current";
+  const round = input.round || "last";
+  const URL = `/f1/${season}/${round}/constructorStandings.json`;
   const data = await dataSources.f1API.get(URL);
   const list = data.MRData.StandingsTable.StandingsLists[0];
 
@@ -29,4 +35,4 @@ const F1TeamStandingsResolver = async (_source, _, { dataSources }) => {
   return TeamStandings;
 };
 
-module.exports = { F1TeamStandingsResolver };
+module.exports = { TeamStandingsResolver };

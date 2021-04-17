@@ -1,13 +1,13 @@
 const { ResultsResolver } = require("./Results");
-const { F1DriverStandingsResolver } = require("./F1DriverStandings");
-const { F1TeamStandingsResolver } = require("./F1TeamStandings");
+const { DriverStandingsResolver } = require("./DriverStandings");
+const { TeamStandingsResolver } = require("./TeamStandings");
 
 const resolvers = {
   Query: {
     hello: () => "Hello world!",
     Results: ResultsResolver,
-    DriverStandings: F1DriverStandingsResolver,
-    ConstructorStandings: F1TeamStandingsResolver,
+    DriverStandings: DriverStandingsResolver,
+    ConstructorStandings: TeamStandingsResolver,
   },
 };
 

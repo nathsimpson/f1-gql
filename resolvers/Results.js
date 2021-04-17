@@ -1,8 +1,10 @@
 const { teamsColors } = require("../utils");
 
 // http://ergast.com/api/f1/current/last/results.json
-const ResultsResolver = async (_source, _, { dataSources }) => {
-  const URL = "/f1/current/last/results.json";
+const ResultsResolver = async (_source, { input = {} }, { dataSources }) => {
+  const season = input.season || "current";
+  const round = input.round || "last";
+  const URL = `/f1/${season}/${round}/results.json`;
   const { MRData } = await dataSources.f1API.get(URL);
 
   // "limit": "30",
@@ -11,7 +13,7 @@ const ResultsResolver = async (_source, _, { dataSources }) => {
   const race = MRData.RaceTable.Races[0];
 
   // return array when?
-  const F1SessionResults = {
+  const Results = {
     series: MRData.series,
     season: MRData.RaceTable.season,
     round: MRData.RaceTable.round,
@@ -20,21 +22,10 @@ const ResultsResolver = async (_source, _, { dataSources }) => {
     // Circuit
     circuit: {
       ...race.circuit,
-      location: race.circuit.Location,
+      location: {
+        ...(race.circuit ? race.circuit.Location : {}),
+      },
     },
-    // circuit: {
-    //   circuitId: "bahrain",
-    //   url: "http://en.wikipedia.org/wiki/Bahrain_International_Circuit",
-    //   circuitName: "Bahrain International Circuit",
-    //   Location: {
-    //     locality: race.Circuit.locality,
-    //     country: race.Circuit.context,
-    //     lat: "26.0325",
-    //     long: "50.5106",
-    //     locality: "Sakhir",
-    //     country: "Bahrain",
-    //   },
-    // },
     date: race.date,
     time: race.time,
     results: race.Results.map((c) => ({
@@ -69,7 +60,7 @@ const ResultsResolver = async (_source, _, { dataSources }) => {
     })),
   };
 
-  return F1SessionResults;
+  return Results;
 };
 
 module.exports = { ResultsResolver };
