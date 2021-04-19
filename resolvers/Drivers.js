@@ -11,11 +11,20 @@ const DriversResolver = async (
   const args = [];
 
   if (where.season) {
-    args.push(`${where.season}/${where.round || "last"}`);
+    args.push(where.season);
+  }
+
+  if (where.round) {
+    if (!where.season) {
+      throw new Error(
+        "A round must be paired with a season. Please specify a season in your query."
+      );
+    }
+    args.push(where.round);
   }
 
   Object.keys(where)
-    .filter((arg) => ["season", "round"].includes(arg))
+    .filter((arg) => !["season", "round"].includes(arg))
     .forEach((arg) => {
       args.push(`${arg}/${where[arg]}`);
     });
@@ -28,6 +37,7 @@ const DriversResolver = async (
     args.length ? `${args.join("/")}/` : ""
   }drivers.json?limit=${limit}&offset=${offset}`;
 
+  console.log(`[ QUERY ]: ${URL}`);
   const { MRData } = await dataSources.f1API.get(URL);
 
   const totalResults = parseInt(MRData.total);
