@@ -1,6 +1,19 @@
 const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
+  type PageInfo {
+    hasNextPage: Boolean!
+    "Total of nodes returned from query."
+    total: Int
+    "Total of pages returned from query."
+    totalPages: Int
+  }
+
+  input PageInput {
+    "Page number. Starts at 1."
+    number: Int!
+  }
+
   enum RacingSeries {
     "Formula 1"
     f1
@@ -32,14 +45,22 @@ const typeDefs = gql`
   }
 
   type Driver {
-    driverId: ID
+    "alonso"
+    id: ID
+    "14"
     number: String
     "RIC, HAM, VER"
     code: String
+    "Fernando"
     firstName: String
+    "Alonso"
     lastName: String
+    "1981-07-29"
     dateOfBirth: String
+    "Spanish"
     nationality: String
+    "http://en.wikipedia.org/wiki/Fernando_Alonso"
+    driverUrl: String
   }
 
   type DriverRaceTime {
@@ -142,6 +163,11 @@ const typeDefs = gql`
     teams: [ConstructorStandingsTeam]
   }
 
+  type DriversReport {
+    nodes: [Driver]
+    pageInfo: PageInfo!
+  }
+
   input ReportInput {
     "e.g. current, 2021, 2008"
     season: String
@@ -149,8 +175,28 @@ const typeDefs = gql`
     round: String
   }
 
+  input DriversSearchInput {
+    "e.g. current, 2021, 2008"
+    season: String
+    "e.g. last, 1, 12"
+    round: String
+    "Drivers who have raced with a particular constructor. e.g. 'mclaren'"
+    constructors: String
+    "Drivers who have raced at a particular circuit. e.g. 'monza'"
+    circuits: String
+    "Drivers who have achieved a particular final position in the championship. e.g. '1'"
+    driverStandings: String
+  }
+
+  input DriversInput {
+    where: DriversSearchInput
+    pageInput: PageInput!
+  }
+
   type Query {
     hello: String
+    Driver(id: ID): Driver
+    Drivers(input: DriversInput): DriversReport
     Results(input: ReportInput): RaceReport
     DriverStandings(input: ReportInput): DriverStandingsReport
     ConstructorStandings(input: ReportInput): ConstructorStandingsReport

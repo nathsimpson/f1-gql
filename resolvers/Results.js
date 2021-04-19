@@ -1,6 +1,5 @@
-const { teamsColors } = require("../utils");
+const { teamsColors, getDriver } = require("../utils");
 
-// http://ergast.com/api/f1/current/last/results.json
 const ResultsResolver = async (_source, { input = {} }, { dataSources }) => {
   const season = input.season || "current";
   const round = input.round || "last";
@@ -32,15 +31,7 @@ const ResultsResolver = async (_source, { input = {} }, { dataSources }) => {
       number: c.number,
       position: c.position,
       points: c.points,
-      driver: {
-        id: c.Driver.driverId,
-        code: c.Driver.code,
-        firstName: c.Driver.givenName,
-        lastName: c.Driver.familyName,
-        dateOfBirth: c.Driver.dateOfBirth,
-        nationality: c.Driver.nationality,
-        driverUrl: c.Driver.url,
-      },
+      driver: getDriver(c.Driver),
       constructor: {
         name: c.Constructor.name,
         id: c.Constructor.constructorId,
