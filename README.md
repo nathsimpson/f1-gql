@@ -4,13 +4,17 @@ Formula 1 GraphQL (F1-GQL) is a GraphQL API which provides information on Formul
 
 Data is provided by [the Ergast API](http://ergast.com/mrd/).
 
-## How to run
-
-1. Clone the repo and `cd f1-gql`.
-2. `yarn` to install dependencies.
-3. `yarn dev` to run the graphql server.
-
 ## How to use
+
+1. Clone the repo
+
+```
+git clone https://github.com/nathsimpson/f1-gql.git
+cd f1-gql
+```
+
+2. Run `yarn` to install dependencies.
+3. Run `yarn start` to run the graphql server.
 
 Once the GraphQL server is running. Go to [http://localhost:4000/graphql](http://localhost:4000/graphql) and the GraphQL environment should appear. From there you can start experimenting with queries.
 
