@@ -200,7 +200,6 @@ const typeDefs = gql`
   }
 
   type Query {
-    hello: String
     Driver(id: ID): Driver
     Drivers(input: DriversInput): DriversReport
     Results(input: ReportInput): RaceReport
