@@ -95,20 +95,19 @@ const typeDefs = gql`
     laps: String
     status: String
     timeMillis: Int
+    "1:26.736"
     timeString: String
     fastestLap: RaceCompetitorFastestLap
   }
 
   "Race results report. Will return data from the latest race if not arguments sent."
-  type RaceReport {
+  type Race {
     "Formula 1"
     series: RacingSeries
-    "current, 2021, 2008"
+    "2021, 2008"
     season: String
-    "last, 2"
+    "1, 2"
     round: String
-    "Wikipedia URL"
-    url: String
     "Bahrain Grand Prix"
     raceName: String
     circuit: Circuit
@@ -117,6 +116,8 @@ const typeDefs = gql`
     "15:00:00Z"
     time: String
     results: [RaceCompetitor]
+    "Wikipedia URL"
+    url: String
   }
 
   type F1DriverStandingsDriver {
@@ -168,6 +169,40 @@ const typeDefs = gql`
     pageInfo: PageInfo!
   }
 
+  "Competitor in a qualifying event"
+  type QualiCompetitor {
+    number: String
+    position: String
+    id: ID
+    driver: Driver
+    constructor: Constructor
+    "Q1 time. e.g. '1:26.736'"
+    Q1: String
+    "Q2 time. e.g. '1:26.736'"
+    Q2: String
+    "Q3 time. e.g. '1:26.736'"
+    Q3: String
+  }
+
+  type Qualifying {
+    "Formula 1"
+    series: RacingSeries
+    "2021, 2008"
+    season: String
+    "1, 2"
+    round: String
+    "Bahrain Grand Prix"
+    raceName: String
+    circuit: Circuit
+    "2021-03-28"
+    date: String
+    "15:00:00Z"
+    time: String
+    results: [QualiCompetitor]
+    "Wikipedia URL"
+    url: String
+  }
+
   input ReportInput {
     "e.g. current, 2021, 2008"
     season: String
@@ -202,7 +237,8 @@ const typeDefs = gql`
   type Query {
     Driver(id: ID): Driver
     Drivers(input: DriversInput): DriversReport
-    Results(input: ReportInput): RaceReport
+    Results(input: ReportInput): Race
+    QualifyingResults(input: ReportInput): Qualifying
     DriverStandings(input: ReportInput): DriverStandingsReport
     ConstructorStandings(input: ReportInput): ConstructorStandingsReport
   }
