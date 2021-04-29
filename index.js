@@ -25,5 +25,6 @@ const app = express();
 apollo.applyMiddleware({ app });
 
 app.listen({ port: 4000 }, () => {
-  console.log(`🚀 Server ready at http://localhost:4000${apollo.graphqlPath}`);
+  console.log(`🏎  F1-GQL Server ready at port 4000`);
+  console.log(`🏎  http://localhost:4000${apollo.graphqlPath}`);
 });
