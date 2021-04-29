@@ -244,8 +244,8 @@ const typeDefs = gql`
     season: String
     "e.g. last, 1, 12"
     round: String
-    "Constructors who have raced with a particular constructor. e.g. 'mclaren'"
-    constructors: String
+    "Constructors who have raced with a particular driver. e.g. 'alonso'"
+    drivers: String
     "Constructors who have raced at a particular circuit. e.g. 'monza'"
     circuits: String
     "Constructors who have achieved a particular final position in the championship. e.g. '1'"
@@ -263,15 +263,54 @@ const typeDefs = gql`
     pageInput: PageInput!
   }
 
+  type Season {
+    "e.g. 2021, 2008"
+    year: String
+    "Wikipedia URL"
+    url: String
+  }
+
+  type SeasonsReport {
+    nodes: [Season]
+    pageInfo: PageInfo!
+  }
+
+  input SeasonsSearchInput {
+    "e.g. current, 2021, 2008"
+    season: String
+    "e.g. last, 1, 12"
+    round: String
+    "Seasons which included a particular constructor. e.g. 'mclaren'"
+    constructors: String
+    "Seasons which included a particular circuit. e.g. 'monza'"
+    drivers: String
+    "Seasons which included a particular driver. e.g. 'alonso'"
+    circuits: String
+    "Seasons where a specified driver/constructor started the race in a specified position. e.g. '1'"
+    grid: String
+    "Seasons where a specified driver/constructor finished the race in a specified position. e.g. '1'"
+    results: String
+    "Seasons where a specified driver/constructor achieve a specific ranking of fastest lap in a grand prix. e.g. '1'"
+    fastest: String
+    "Seasons where a specified driver/constructor ended the race with a specific 'status'"
+    status: String
+  }
+
+  input SeasonsInput {
+    where: SeasonsSearchInput
+    pageInput: PageInput!
+  }
+
   type Query {
     Constructor(id: ID): Constructor
     Constructors(input: ConstructorsInput): ConstructorsReport
-    Driver(id: ID): Driver
-    Drivers(input: DriversInput): DriversReport
-    Results(input: ReportInput): Race
-    QualifyingResults(input: ReportInput): Qualifying
-    DriverStandings(input: ReportInput): DriverStandingsReport
     ConstructorStandings(input: ReportInput): ConstructorStandingsReport
+    Driver(id: ID): Driver
+    DriverStandings(input: ReportInput): DriverStandingsReport
+    Drivers(input: DriversInput): DriversReport
+    QualifyingResults(input: ReportInput): Qualifying
+    Results(input: ReportInput): Race
+    Seasons(input: SeasonsInput): SeasonsReport
   }
 `;
 
