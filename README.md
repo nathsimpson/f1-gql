@@ -1,10 +1,30 @@
-# Formula 1 GraphQL
+# Formula 1 GraphQL 🏎
+
+> F1-GQL is still under active development, so not all data types are currently available.
 
 Formula 1 GraphQL (F1-GQL) is a GraphQL API which provides information on Formula 1 race results, championship standings and more.
 
 Data is provided by [the Ergast API](http://ergast.com/mrd/).
 
-## How to use
+The following information is available from F1-GQL...
+
+- Race Results
+- Qualifying Results
+- Driver Standings
+- Driver Information
+- Constructor Standings
+- Constructor Information
+- Season List
+- Finishing Status
+
+This project is still under active development. Resolvers for the following data is coming soon...
+
+- Race Schedule
+- Circuit Information
+- Lap Times
+- Pit Stops
+
+## Getting Started
 
 1. Clone the repo
 
@@ -19,7 +39,7 @@ cd f1-gql
 Once the GraphQL server is running. Go to [http://localhost:4000/graphql](http://localhost:4000/graphql) and the GraphQL environment should appear. From there you can start experimenting with queries.
 
 ```graphql
-query F1Results {
+query RaceResults {
   Results {
     season
     raceName
