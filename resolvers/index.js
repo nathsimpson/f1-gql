@@ -5,6 +5,7 @@ const { DriverResolver, DriversResolver } = require("./Drivers");
 const { DriverStandingsResolver } = require("./DriverStandings");
 const { TeamStandingsResolver } = require("./TeamStandings");
 const { SeasonsResolver } = require("./Seasons");
+const { StatusResolver } = require("./Status");
 
 const resolvers = {
   Query: {
@@ -14,6 +15,7 @@ const resolvers = {
     Drivers: DriversResolver,
     Results: ResultsResolver,
     Seasons: SeasonsResolver,
+    Status: StatusResolver,
     QualifyingResults: QualiResolver,
     DriverStandings: DriverStandingsResolver,
     ConstructorStandings: TeamStandingsResolver,
