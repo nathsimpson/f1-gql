@@ -11,6 +11,12 @@ const TeamStandingsResolver = async (
   const data = await dataSources.f1API.get(URL);
   const list = data.MRData.StandingsTable.StandingsLists[0];
 
+  // team search
+  // http://ergast.com/api/f1/constructors/renault/constructorStandings
+
+  // all winners
+  // http://ergast.com/api/f1/constructorStandings/1
+
   const TeamStandings = {
     series: data.MRData.series,
     season: list.season,

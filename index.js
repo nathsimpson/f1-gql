@@ -1,10 +1,10 @@
-const express = require("express");
-const { ApolloServer } = require("apollo-server-express");
-const { RESTDataSource } = require("apollo-datasource-rest");
+import express from "express";
+import { ApolloServer } from "apollo-server-express";
+import { RESTDataSource } from "apollo-datasource-rest";
 
 // LIB
-const { resolvers } = require("./resolvers");
-const { typeDefs } = require("./typedefs");
+import { resolvers } from "./resolvers";
+import { typeDefs } from "./typedefs";
 
 class F1API extends RESTDataSource {
   constructor() {
