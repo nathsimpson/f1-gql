@@ -1,11 +1,13 @@
-const { getDriver } = require("../../utils")
+const { teamsColors } = require("../../utils");
+const { getDriver } = require("../../utils");
 
-// http://ergast.com/api/f1/current/last/results.json?limit=30&offset=30
-const Drivers = async (
+/** Get a list of Constructors */
+const Constructors = async (
   _source,
   { input = { where: {}, pageInput: {} } },
   { dataSources }
 ) => {
+  // http://ergast.com/api/f1/constructors.json
   const where = input.where || {};
   const pageInput = input.pageInput || {};
   const args = [];
@@ -35,7 +37,7 @@ const Drivers = async (
 
   const URL = `/f1/${
     args.length ? `${args.join("/")}/` : ""
-  }drivers.json?limit=${limit}&offset=${offset}`;
+  }constructors.json?limit=${limit}&offset=${offset}`;
 
   console.log(`[ QUERY ]: ${URL}`);
   const { MRData } = await dataSources.f1API.get(URL);
@@ -43,10 +45,14 @@ const Drivers = async (
   const totalResults = parseInt(MRData.total);
   const totalPages = Math.ceil(totalResults / limit);
 
-  const drivers = MRData.DriverTable.Drivers.map((driver) => getDriver(driver));
+  const teams = MRData.ConstructorTable.Constructors.map((t) => ({
+    ...t,
+    id: t.constructorId,
+    color: teamsColors[t.name],
+  }));
 
   return {
-    nodes: drivers,
+    nodes: teams,
     pageInfo: {
       hasNextPage: page < totalPages,
       totalPages: totalPages,
@@ -55,22 +61,22 @@ const Drivers = async (
   };
 };
 
-// http://ergast.com/api/f1/drivers/norris.json
-const Driver = async (_source, { id }, { dataSources }) => {
+// http://ergast.com/api/f1/constructors/mclaren.json
+const Constructor = async (_source, { id }, { dataSources }) => {
   if (!id) {
-    throw new Error("Driver ID was not provided");
+    throw new Error("Constructor ID was not provided");
   }
 
-  const URL = `/f1/drivers/${id}.json`;
+  const URL = `/f1/constructors/${id}.json`;
   const { MRData } = await dataSources.f1API.get(URL);
 
-  const driver = MRData.DriverTable.Drivers[0];
+  const team = MRData.ConstructorTable.Constructors[0];
 
-  if (!driver) {
-    throw new Error("Driver was not found");
+  if (!team) {
+    throw new Error("Constructor was not found");
   }
 
-  return getDriver(driver);
+  return team;
 };
 
-module.exports = { Driver, Drivers };
+module.exports = { Constructor, Constructors };

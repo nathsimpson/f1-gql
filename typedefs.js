@@ -1,5 +1,6 @@
 const { gql } = require("apollo-server-express");
 
+const { typeDefs: Constructors } = require("./data/Constructors/typeDefs");
 const { typeDefs: Drivers } = require("./data/Drivers/typeDefs");
 const { typeDefs: Status } = require("./data/Status/typeDefs");
 
@@ -36,15 +37,6 @@ const base = gql`
     url: String
     circuitName: String
     location: CircuitLocation
-  }
-
-  type Constructor {
-    id: String
-    name: String
-    url: String
-    "Team primary colour in HEX format. Not part of the Ergast database."
-    color: String
-    nationality: String
   }
 
   type RaceCompetitorFastestLapAverageSpeed {
@@ -213,34 +205,7 @@ const base = gql`
     pageInput: PageInput!
   }
 
-  type ConstructorsReport {
-    nodes: [Constructor]
-    pageInfo: PageInfo!
-  }
 
-  input ConstructorsSearchInput {
-    "e.g. current, 2021, 2008"
-    season: String
-    "e.g. last, 1, 12"
-    round: String
-    "Constructors who have raced with a particular driver. e.g. 'alonso'"
-    drivers: String
-    "Constructors who have raced at a particular circuit. e.g. 'monza'"
-    circuits: String
-    "Constructors who have achieved a particular final position in the championship. e.g. '1'"
-    Constructorstandings: String
-    "Constructors who started the race in a specified position. e.g. '1'"
-    grid: String
-    "Constructors who finished the race in a specified position. e.g. '1'"
-    results: String
-    "Constructors who achieve a specific ranking of fastest lap in a grand prix. e.g. '1'"
-    fastest: String
-  }
-
-  input ConstructorsInput {
-    where: ConstructorsSearchInput
-    pageInput: PageInput!
-  }
 
   type Season {
     "e.g. 2021, 2008"
@@ -295,6 +260,6 @@ const base = gql`
   }
 `;
 
-const typeDefs = [base, Drivers,Status];
+const typeDefs = [base, Constructors, Drivers, Status];
 
 module.exports = { typeDefs };
