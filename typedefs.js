@@ -1,5 +1,7 @@
 const { gql } = require("apollo-server-express");
-const { typeDefs: Status } = require("./resolvers/Status");
+
+const { typeDefs: Drivers } = require("./data/Drivers/typeDefs");
+const { typeDefs: Status } = require("./data/Status/typeDefs");
 
 const base = gql`
   type PageInfo {
@@ -43,25 +45,6 @@ const base = gql`
     "Team primary colour in HEX format. Not part of the Ergast database."
     color: String
     nationality: String
-  }
-
-  type Driver {
-    "alonso"
-    id: ID
-    "14"
-    number: String
-    "RIC, HAM, VER"
-    code: String
-    "Fernando"
-    firstName: String
-    "Alonso"
-    lastName: String
-    "1981-07-29"
-    dateOfBirth: String
-    "Spanish"
-    nationality: String
-    "http://en.wikipedia.org/wiki/Fernando_Alonso"
-    driverUrl: String
   }
 
   type RaceCompetitorFastestLapAverageSpeed {
@@ -312,6 +295,6 @@ const base = gql`
   }
 `;
 
-const typeDefs = [base, Status];
+const typeDefs = [base, Drivers,Status];
 
 module.exports = { typeDefs };

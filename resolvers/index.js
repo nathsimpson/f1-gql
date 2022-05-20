@@ -1,11 +1,11 @@
 const { ConstructorResolver, ConstructorsResolver } = require("./Constructors");
 const { ResultsResolver } = require("./Results");
 const { QualiResolver } = require("./Qualifying");
-const { DriverResolver, DriversResolver } = require("./Drivers");
+const { DriverResolver, DriversResolver } = require("../data/Drivers/resolvers");
 const { DriverStandingsResolver } = require("./DriverStandings");
 const { TeamStandingsResolver } = require("./TeamStandings");
 const { SeasonsResolver } = require("./Seasons");
-const { StatusResolver } = require("./Status");
+const { StatusResolver } = require("../data/Status/resolvers");
 
 const resolvers = {
   Query: {

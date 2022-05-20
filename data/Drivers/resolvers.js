@@ -1,4 +1,4 @@
-const { getDriver } = require("../utils");
+const { getDriver } = require("../../utils")
 
 // http://ergast.com/api/f1/current/last/results.json?limit=30&offset=30
 const DriversResolver = async (
