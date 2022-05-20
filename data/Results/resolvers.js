@@ -1,6 +1,6 @@
-const { teamsColors, getDriver } = require("../utils");
+const { teamsColors, getDriver } = require("../../utils");
 
-const ResultsResolver = async (_source, { input = {} }, { dataSources }) => {
+const Results = async (_source, { input = {} }, { dataSources }) => {
   const season = input.season || "current";
   const round = input.round || "last";
   const URL = `/f1/${season}/${round}/results.json`;
@@ -8,7 +8,7 @@ const ResultsResolver = async (_source, { input = {} }, { dataSources }) => {
 
   const race = MRData.RaceTable.Races[0];
 
-  const Results = {
+  return {
     series: MRData.series,
     season: MRData.RaceTable.season,
     round: MRData.RaceTable.round,
@@ -46,8 +46,6 @@ const ResultsResolver = async (_source, { input = {} }, { dataSources }) => {
       },
     })),
   };
-
-  return Results;
 };
 
-module.exports = { ResultsResolver };
+module.exports = { Results };
