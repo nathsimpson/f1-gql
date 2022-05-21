@@ -1,5 +1,4 @@
 const { teamsColors } = require("../../utils");
-const { getDriver } = require("../../utils");
 
 /** Get a list of Constructors */
 const Constructors = async (

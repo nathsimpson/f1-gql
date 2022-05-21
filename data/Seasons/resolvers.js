@@ -1,5 +1,3 @@
-const { teamsColors } = require("../../utils");
-
 const Seasons = async (
   _source,
   { input = { where: {}, pageInput: {} } },

@@ -1,7 +1,3 @@
-const { gql } = require("apollo-server-express");
-const { teamsColors } = require("../../utils");
-const { getDriver } = require("../../utils");
-
 // http://ergast.com/api/f1/status.json
 const StatusResolver = async (
   _source,
