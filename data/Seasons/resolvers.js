@@ -1,6 +1,6 @@
-const { teamsColors } = require("../utils");
+const { teamsColors } = require("../../utils");
 
-const SeasonsResolver = async (
+const Seasons = async (
   _source,
   { input = { where: {}, pageInput: {} } },
   { dataSources }
@@ -47,4 +47,4 @@ const SeasonsResolver = async (
   };
 };
 
-module.exports = { SeasonsResolver };
+module.exports = { Seasons };
