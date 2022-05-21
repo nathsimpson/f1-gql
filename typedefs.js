@@ -4,8 +4,12 @@ const { typeDefs: Constructors } = require("./data/Constructors/typeDefs");
 const { typeDefs: Drivers } = require("./data/Drivers/typeDefs");
 const { typeDefs: Status } = require("./data/Status/typeDefs");
 const { typeDefs: Results } = require("./data/Results/typeDefs");
-const { typeDefs: ConstructorStandings } = require("./data/ConstructorStandings/typeDefs");
-const { typeDefs: DriverStandings } = require("./data/DriverStandings/typeDefs");
+const {
+  typeDefs: ConstructorStandings,
+} = require("./data/ConstructorStandings/typeDefs");
+const {
+  typeDefs: DriverStandings,
+} = require("./data/DriverStandings/typeDefs");
 const { typeDefs: Qualifying } = require("./data/Qualifying/typeDefs");
 const { typeDefs: Seasons } = require("./data/Seasons/typeDefs");
 
@@ -66,7 +70,7 @@ const queries = gql`
     "A list of all finishing status codes used by the API"
     Status(input: StatusCodesInput): StatusCodesReport
   }
-`
+`;
 
 const typeDefs = [
   base,

@@ -34,6 +34,6 @@ const typeDefs = gql`
     "Wikipedia URL"
     url: String
   }
-`
+`;
 
 module.exports = { typeDefs };

@@ -1,10 +1,6 @@
 const { teamsColors } = require("../../utils");
 
-const DriverStandings = async (
-  _source,
-  { input = {} },
-  { dataSources }
-) => {
+const DriverStandings = async (_source, { input = {} }, { dataSources }) => {
   const season = input.season || "current";
   const round = input.round || "last";
   const URL = `/f1/${season}/${round}/driverStandings.json`;
