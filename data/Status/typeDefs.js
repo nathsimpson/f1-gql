@@ -9,10 +9,7 @@ const typeDefs = gql`
     "Finished"
     name: String
   }
-  type StatusCodesReport {
-    nodes: [StatusCode]
-    pageInfo: PageInfo!
-  }
+
   input StatusCodesSearchInput {
     "Finishes in a season. e.g. current, 2021, 2008"
     season: String
@@ -29,9 +26,15 @@ const typeDefs = gql`
     "Specify a particular finish code ID"
     status: String
   }
+
   input StatusCodesInput {
     where: StatusCodesSearchInput
     pageInput: PageInput!
+  }
+
+  type StatusCodesReport {
+    nodes: [StatusCode]
+    pageInfo: PageInfo!
   }
 `;
 

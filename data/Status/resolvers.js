@@ -1,5 +1,5 @@
 // http://ergast.com/api/f1/status.json
-const StatusResolver = async (
+const Status = async (
   _source,
   { input = { where: {}, pageInput: {} } },
   { dataSources }
@@ -44,4 +44,4 @@ const StatusResolver = async (
   };
 };
 
-module.exports = { StatusResolver };
+module.exports = { Status };
