@@ -1,11 +1,5 @@
 const { teamsColors } = require("../../utils");
 
-// team search
-// http://ergast.com/api/f1/constructors/renault/constructorStandings
-
-// all winners
-// http://ergast.com/api/f1/constructorStandings/1
-
 const ConstructorStandings = async (
   _source,
   { input = {} },
