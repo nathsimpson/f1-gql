@@ -26,6 +26,6 @@ const typeDefs = gql`
     round: String
     drivers: [F1DriverStandingsDriver]
   }
-`
+`;
 
 module.exports = { typeDefs };
