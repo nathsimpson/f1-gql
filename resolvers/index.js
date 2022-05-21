@@ -5,7 +5,7 @@ const { StatusResolver } = require("../data/Status/resolvers");
 const { Results } = require("../data/Results/resolvers");
 const { QualiResolver } = require("./Qualifying");
 const { DriverStandings } = require("./DriverStandings");
-const { TeamStandingsResolver } = require("./TeamStandings");
+const { ConstructorStandings } = require("../data/ConstructorStandings/resolvers");
 
 const resolvers = {
   Query: {
@@ -18,7 +18,7 @@ const resolvers = {
     Status: StatusResolver,
     QualifyingResults: QualiResolver,
     DriverStandings,
-    ConstructorStandings: TeamStandingsResolver,
+    ConstructorStandings,
   },
 };
 

@@ -8,7 +8,7 @@ const QualiResolver = async (_source, { input = {} }, { dataSources }) => {
 
   const race = MRData.RaceTable.Races[0];
 
-  const Results = {
+  return {
     series: MRData.series,
     season: MRData.RaceTable.season,
     round: MRData.RaceTable.round,
@@ -39,8 +39,6 @@ const QualiResolver = async (_source, { input = {} }, { dataSources }) => {
       Q3: c.Q3,
     })),
   };
-
-  return Results;
 };
 
 module.exports = { QualiResolver };

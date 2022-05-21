@@ -1,6 +1,6 @@
-const { teamsColors } = require("../utils");
+const { teamsColors } = require("../../utils");
 
-const TeamStandingsResolver = async (
+const ConstructorStandings = async (
   _source,
   { input = {} },
   { dataSources }
@@ -11,7 +11,7 @@ const TeamStandingsResolver = async (
   const data = await dataSources.f1API.get(URL);
   const list = data.MRData.StandingsTable.StandingsLists[0];
 
-  const TeamStandings = {
+  return {
     series: data.MRData.series,
     season: list.season,
     round: list.round,
@@ -31,8 +31,6 @@ const TeamStandingsResolver = async (
       };
     }),
   };
-
-  return TeamStandings;
 };
 
-module.exports = { TeamStandingsResolver };
+module.exports = { ConstructorStandings };

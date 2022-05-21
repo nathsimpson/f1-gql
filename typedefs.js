@@ -4,6 +4,7 @@ const { typeDefs: Constructors } = require("./data/Constructors/typeDefs");
 const { typeDefs: Drivers } = require("./data/Drivers/typeDefs");
 const { typeDefs: Status } = require("./data/Status/typeDefs");
 const { typeDefs: Results } = require("./data/Results/typeDefs");
+const { typeDefs: ConstructorStandings } = require("./data/ConstructorStandings/typeDefs");
 
 const base = gql`
   type PageInfo {
@@ -55,13 +56,6 @@ const base = gql`
     team: Constructor
   }
 
-  type ConstructorStandingsTeam {
-    position: String
-    points: String
-    wins: String
-    team: Constructor
-  }
-
   "Leaderboard for the Formula 1 Drivers Championship. Will return data from the latest race if not arguments sent."
   type DriverStandingsReport {
     "Formula 1"
@@ -71,17 +65,6 @@ const base = gql`
     "e.g. last, 1, 12"
     round: String
     drivers: [F1DriverStandingsDriver]
-  }
-
-  "Leaderboard for the Formula 1 Contstructors Championship. Will return data from the latest race if not arguments sent."
-  type ConstructorStandingsReport {
-    "Formula 1"
-    series: RacingSeries
-    "e.g. current, 2021, 2008"
-    season: String
-    "e.g. last, 1, 12"
-    round: String
-    teams: [ConstructorStandingsTeam]
   }
 
   type DriversReport {
@@ -207,6 +190,6 @@ const base = gql`
   }
 `;
 
-const typeDefs = [base, Constructors, Drivers, Results, Status];
+const typeDefs = [base, Constructors, Drivers, Results, Status, ConstructorStandings];
 
 module.exports = { typeDefs };
