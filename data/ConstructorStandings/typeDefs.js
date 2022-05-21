@@ -20,3 +20,5 @@ type ConstructorStandingsReport {
   teams: [ConstructorStandingsTeam]
 }
 `
+
+module.exports = { typeDefs };

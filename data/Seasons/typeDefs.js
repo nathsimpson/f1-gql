@@ -39,3 +39,5 @@ const typeDefs = gql`
     pageInput: PageInput!
   }
 `;
+
+module.exports = { typeDefs };
