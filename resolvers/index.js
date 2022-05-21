@@ -3,7 +3,7 @@ const { Driver, Drivers } = require("../data/Drivers/resolvers");
 const { SeasonsResolver } = require("./Seasons");
 const { StatusResolver } = require("../data/Status/resolvers");
 const { Results } = require("../data/Results/resolvers");
-const { QualiResolver } = require("./Qualifying");
+const { QualifyingResults } = require("../data/Qualifying/resolvers");
 const { DriverStandings } = require("./DriverStandings");
 const { ConstructorStandings } = require("../data/ConstructorStandings/resolvers");
 
@@ -16,7 +16,7 @@ const resolvers = {
     Results,
     Seasons: SeasonsResolver,
     Status: StatusResolver,
-    QualifyingResults: QualiResolver,
+    QualifyingResults,
     DriverStandings,
     ConstructorStandings,
   },

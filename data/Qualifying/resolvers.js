@@ -1,6 +1,6 @@
-const { teamsColors, getDriver } = require("../utils");
+const { teamsColors, getDriver } = require("../../utils");
 
-const QualiResolver = async (_source, { input = {} }, { dataSources }) => {
+const QualifyingResults = async (_source, { input = {} }, { dataSources }) => {
   const season = input.season || "current";
   const round = input.round || "last";
   const URL = `/f1/${season}/${round}/qualifying.json`;
@@ -41,4 +41,4 @@ const QualiResolver = async (_source, { input = {} }, { dataSources }) => {
   };
 };
 
-module.exports = { QualiResolver };
+module.exports = { QualifyingResults };
