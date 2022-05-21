@@ -1,4 +1,4 @@
-const { teamsColors } = require("../utils");
+const { teamsColors } = require("../../utils");
 
 const DriverStandings = async (
   _source,

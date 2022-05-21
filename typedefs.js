@@ -5,6 +5,7 @@ const { typeDefs: Drivers } = require("./data/Drivers/typeDefs");
 const { typeDefs: Status } = require("./data/Status/typeDefs");
 const { typeDefs: Results } = require("./data/Results/typeDefs");
 const { typeDefs: ConstructorStandings } = require("./data/ConstructorStandings/typeDefs");
+const { typeDefs: DriverStandings } = require("./data/DriverStandings/typeDefs");
 const { typeDefs: Qualifying } = require("./data/Qualifying/typeDefs");
 const { typeDefs: Seasons } = require("./data/Seasons/typeDefs");
 
@@ -43,37 +44,6 @@ const base = gql`
     location: CircuitLocation
   }
 
-  type F1DriverStandingsDriver {
-    position: String
-    points: String
-    wins: String
-    number: String
-    driverId: ID
-    "PER"
-    code: String
-    firstName: String
-    lastName: String
-    dateOfBirth: String
-    nationality: String
-    team: Constructor
-  }
-
-  "Leaderboard for the Formula 1 Drivers Championship. Will return data from the latest race if not arguments sent."
-  type DriverStandingsReport {
-    "Formula 1"
-    series: RacingSeries
-    "e.g. current, 2021, 2008"
-    season: String
-    "e.g. last, 1, 12"
-    round: String
-    drivers: [F1DriverStandingsDriver]
-  }
-
-  type DriversReport {
-    nodes: [Driver]
-    pageInfo: PageInfo!
-  }
-
   input ReportInput {
     "e.g. current, 2021, 2008"
     season: String
@@ -105,6 +75,7 @@ const typeDefs = [
   Results,
   Status,
   ConstructorStandings,
+  DriverStandings,
   Qualifying,
   Seasons,
   queries,

@@ -4,7 +4,7 @@ const { Seasons } = require("../data/Seasons/resolvers");
 const { StatusResolver } = require("../data/Status/resolvers");
 const { Results } = require("../data/Results/resolvers");
 const { QualifyingResults } = require("../data/Qualifying/resolvers");
-const { DriverStandings } = require("./DriverStandings");
+const { DriverStandings } = require("../data/DriverStandings/resolvers");
 const { ConstructorStandings } = require("../data/ConstructorStandings/resolvers");
 
 const resolvers = {
