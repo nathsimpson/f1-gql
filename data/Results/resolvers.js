@@ -1,19 +1,19 @@
-const { teamsColors, getDriver } = require("../utils");
+const { teamsColors, getDriver } = require("../../utils");
 
-const QualiResolver = async (_source, { input = {} }, { dataSources }) => {
+const Results = async (_source, { input = {} }, { dataSources }) => {
   const season = input.season || "current";
   const round = input.round || "last";
-  const URL = `/f1/${season}/${round}/qualifying.json`;
+  const URL = `/f1/${season}/${round}/results.json`;
   const { MRData } = await dataSources.f1API.get(URL);
 
   const race = MRData.RaceTable.Races[0];
 
-  const Results = {
+  return {
     series: MRData.series,
     season: MRData.RaceTable.season,
     round: MRData.RaceTable.round,
 
-    // Quali
+    // Race
     raceName: race.raceName,
     circuit: {
       ...race.circuit,
@@ -23,9 +23,10 @@ const QualiResolver = async (_source, { input = {} }, { dataSources }) => {
     },
     date: race.date,
     time: race.time,
-    results: race.QualifyingResults.map((c) => ({
+    results: race.Results.map((c) => ({
       number: c.number,
       position: c.position,
+      points: c.points,
       driver: getDriver(c.Driver),
       constructor: {
         name: c.Constructor.name,
@@ -34,13 +35,17 @@ const QualiResolver = async (_source, { input = {} }, { dataSources }) => {
         color: teamsColors[c.Constructor.name],
         nationality: c.Constructor.nationality,
       },
-      Q1: c.Q1,
-      Q2: c.Q2,
-      Q3: c.Q3,
+      grid: c.grid,
+      laps: c.laps,
+      status: c.status,
+      timeMillis: c.Time ? c.Time.millis : null,
+      timeString: c.Time ? c.Time.time : null,
+      fastestLap: {
+        ...c.FastestLap,
+        time: c.FastestLap ? c.FastestLap.Time.time : null,
+      },
     })),
   };
-
-  return Results;
 };
 
-module.exports = { QualiResolver };
+module.exports = { Results };

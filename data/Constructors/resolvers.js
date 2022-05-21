@@ -1,12 +1,12 @@
-const { teamsColors } = require("../utils");
-const { getDriver } = require("../utils");
+const { teamsColors } = require("../../utils");
 
-// http://ergast.com/api/f1/constructors.json
-const ConstructorsResolver = async (
+/** Get a list of Constructors */
+const Constructors = async (
   _source,
   { input = { where: {}, pageInput: {} } },
   { dataSources }
 ) => {
+  // http://ergast.com/api/f1/constructors.json
   const where = input.where || {};
   const pageInput = input.pageInput || {};
   const args = [];
@@ -61,7 +61,7 @@ const ConstructorsResolver = async (
 };
 
 // http://ergast.com/api/f1/constructors/mclaren.json
-const ConstructorResolver = async (_source, { id }, { dataSources }) => {
+const Constructor = async (_source, { id }, { dataSources }) => {
   if (!id) {
     throw new Error("Constructor ID was not provided");
   }
@@ -78,4 +78,4 @@ const ConstructorResolver = async (_source, { id }, { dataSources }) => {
   return team;
 };
 
-module.exports = { ConstructorResolver, ConstructorsResolver };
+module.exports = { Constructor, Constructors };

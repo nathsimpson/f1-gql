@@ -1,6 +1,6 @@
-const { teamsColors } = require("../utils");
+const { teamsColors } = require("../../utils");
 
-const DriverStandingsResolver = async (
+const DriverStandings = async (
   _source,
   { input = {} },
   { dataSources }
@@ -11,7 +11,7 @@ const DriverStandingsResolver = async (
   const data = await dataSources.f1API.get(URL);
   const list = data.MRData.StandingsTable.StandingsLists[0];
 
-  const DriverStandings = {
+  return {
     series: data.MRData.series,
     season: list.season,
     round: list.round,
@@ -39,8 +39,6 @@ const DriverStandingsResolver = async (
       };
     }),
   };
-
-  return DriverStandings;
 };
 
-module.exports = { DriverStandingsResolver };
+module.exports = { DriverStandings };

@@ -1,8 +1,4 @@
-const { teamsColors } = require("../utils");
-const { getDriver } = require("../utils");
-
-// http://ergast.com/api/f1/status.json
-const StatusResolver = async (
+const Seasons = async (
   _source,
   { input = { where: {}, pageInput: {} } },
   { dataSources }
@@ -23,22 +19,24 @@ const StatusResolver = async (
 
   const URL = `/f1/${
     args.length ? `${args.join("/")}/` : ""
-  }status.json?limit=${limit}&offset=${offset}`;
+  }seasons.json?limit=${limit}&offset=${offset}`;
 
   console.log(`[ QUERY ]: ${URL}`);
   const { MRData } = await dataSources.f1API.get(URL);
+  const list = MRData.SeasonTable.Seasons;
 
   const totalResults = parseInt(MRData.total);
   const totalPages = Math.ceil(totalResults / limit);
 
-  const nodes = MRData.StatusTable.Status.map((t) => ({
-    id: t.statusId,
-    count: parseInt(t.count),
-    name: t.status,
-  }));
+  const seasons = list.map(({ season, url }) => {
+    return {
+      year: season,
+      url,
+    };
+  });
 
   return {
-    nodes: nodes,
+    nodes: seasons,
     pageInfo: {
       hasNextPage: page < totalPages,
       totalPages: totalPages,
@@ -47,4 +45,4 @@ const StatusResolver = async (
   };
 };
 
-module.exports = { StatusResolver };
+module.exports = { Seasons };

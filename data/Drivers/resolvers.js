@@ -1,7 +1,7 @@
-const { getDriver } = require("../utils");
+const { getDriver } = require("../../utils")
 
 // http://ergast.com/api/f1/current/last/results.json?limit=30&offset=30
-const DriversResolver = async (
+const Drivers = async (
   _source,
   { input = { where: {}, pageInput: {} } },
   { dataSources }
@@ -56,7 +56,7 @@ const DriversResolver = async (
 };
 
 // http://ergast.com/api/f1/drivers/norris.json
-const DriverResolver = async (_source, { id }, { dataSources }) => {
+const Driver = async (_source, { id }, { dataSources }) => {
   if (!id) {
     throw new Error("Driver ID was not provided");
   }
@@ -73,4 +73,4 @@ const DriverResolver = async (_source, { id }, { dataSources }) => {
   return getDriver(driver);
 };
 
-module.exports = { DriverResolver, DriversResolver };
+module.exports = { Driver, Drivers };
