@@ -1,10 +1,10 @@
+const { usePagination } = require("../../utils");
+
 const Seasons = async (
   _source,
-  { input = { where: {}, pageInput: {} } },
+  { input: { where = {}, pageInput = {} } },
   { dataSources }
 ) => {
-  const where = input.where || {};
-  const pageInput = input.pageInput || {};
   const args = [];
 
   Object.keys(where)
@@ -13,20 +13,22 @@ const Seasons = async (
       args.push(`${arg}/${where[arg]}`);
     });
 
-  const page = pageInput.number || 1;
-  const limit = 30;
-  const offset = (page - 1) * limit;
+  const { paginationPath, pageNumber, resultsPerPageLimit } =
+    usePagination(pageInput);
 
-  const URL = `/f1/${
-    args.length ? `${args.join("/")}/` : ""
-  }seasons.json?limit=${limit}&offset=${offset}`;
+  const URL = [
+    "/f1/",
+    `${args.length ? `${args.join("/")}/` : ""}`,
+    seasons.json,
+    paginationPath,
+  ].join("");
 
   console.log(`[ QUERY ]: ${URL}`);
   const { MRData } = await dataSources.f1API.get(URL);
   const list = MRData.SeasonTable.Seasons;
 
   const totalResults = parseInt(MRData.total);
-  const totalPages = Math.ceil(totalResults / limit);
+  const totalPages = Math.ceil(totalResults / resultsPerPageLimit);
 
   const seasons = list.map(({ season, url }) => {
     return {
@@ -38,7 +40,7 @@ const Seasons = async (
   return {
     nodes: seasons,
     pageInfo: {
-      hasNextPage: page < totalPages,
+      hasNextPage: pageNumber < totalPages,
       totalPages: totalPages,
       total: totalResults,
     },

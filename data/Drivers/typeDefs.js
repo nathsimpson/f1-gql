@@ -31,9 +31,9 @@ const typeDefs = gql`
     circuits: String
     "Drivers who have achieved a particular final position in the championship. e.g. '1'"
     driverStandings: String
-    "Drivers who started the race in a specified position. e.g. '1'"
+    "Drivers who started a race in a specified position. e.g. '1'"
     grid: String
-    "Drivers who finished the race in a specified position. e.g. '1'"
+    "Drivers who finished a race in a specified position. e.g. '1'"
     results: String
     "Drivers who achieve a specific ranking of fastest lap in a grand prix. e.g. '1'"
     fastest: String

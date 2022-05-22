@@ -1,14 +1,11 @@
-const { constructorColors } = require("../../utils");
+const { constructorColors, usePagination } = require("../../utils");
 
 /** Get a list of Constructors */
 const Constructors = async (
   _source,
-  { input = { where: {}, pageInput: {} } },
+  { input: { where = {}, pageInput = {} } },
   { dataSources }
 ) => {
-  // http://ergast.com/api/f1/constructors.json
-  const where = input.where || {};
-  const pageInput = input.pageInput || {};
   const args = [];
 
   if (where.season) {
@@ -30,19 +27,21 @@ const Constructors = async (
       args.push(`${arg}/${where[arg]}`);
     });
 
-  const page = pageInput.number || 1;
-  const limit = 30;
-  const offset = (page - 1) * limit;
+  const { paginationPath, pageNumber, resultsPerPageLimit } =
+    usePagination(pageInput);
 
-  const URL = `/f1/${
-    args.length ? `${args.join("/")}/` : ""
-  }constructors.json?limit=${limit}&offset=${offset}`;
+  const URL = [
+    "/f1/",
+    `${args.length ? `${args.join("/")}/` : ""}`,
+    "constructors.json",
+    paginationPath,
+  ].join("");
 
   console.log(`[ QUERY ]: ${URL}`);
   const { MRData } = await dataSources.f1API.get(URL);
 
   const totalResults = parseInt(MRData.total);
-  const totalPages = Math.ceil(totalResults / limit);
+  const totalPages = Math.ceil(totalResults / resultsPerPageLimit);
 
   const teams = MRData.ConstructorTable.Constructors.map((t) => ({
     ...t,
@@ -53,7 +52,7 @@ const Constructors = async (
   return {
     nodes: teams,
     pageInfo: {
-      hasNextPage: page < totalPages,
+      hasNextPage: pageNumber < totalPages,
       totalPages: totalPages,
       total: totalResults,
     },

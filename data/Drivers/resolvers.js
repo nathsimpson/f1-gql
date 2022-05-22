@@ -1,15 +1,12 @@
-const { getDriver } = require("../../utils");
+const { getDriver, usePagination } = require("../../utils");
 
 // http://ergast.com/api/f1/current/last/results.json?limit=30&offset=30
 const Drivers = async (
   _source,
-  { input = { where: {}, pageInput: {} } },
+  { input: { where = {}, pageInput = {} } },
   { dataSources }
 ) => {
-  const where = input.where || {};
-  const pageInput = input.pageInput || {};
   const args = [];
-
   if (where.season) {
     args.push(where.season);
   }
@@ -29,26 +26,28 @@ const Drivers = async (
       args.push(`${arg}/${where[arg]}`);
     });
 
-  const page = pageInput.number || 1;
-  const limit = 30;
-  const offset = (page - 1) * limit;
+  const { paginationPath, pageNumber, resultsPerPageLimit } =
+    usePagination(pageInput);
 
-  const URL = `/f1/${
-    args.length ? `${args.join("/")}/` : ""
-  }drivers.json?limit=${limit}&offset=${offset}`;
+  const URL = [
+    "/f1",
+    `/${args.length ? `${args.join("/")}/` : ""}`,
+    "drivers.json",
+    paginationPath,
+  ].join("");
 
   console.log(`[ QUERY ]: ${URL}`);
   const { MRData } = await dataSources.f1API.get(URL);
 
   const totalResults = parseInt(MRData.total);
-  const totalPages = Math.ceil(totalResults / limit);
+  const totalPages = Math.ceil(totalResults / resultsPerPageLimit);
 
   const drivers = MRData.DriverTable.Drivers.map((driver) => getDriver(driver));
 
   return {
     nodes: drivers,
     pageInfo: {
-      hasNextPage: page < totalPages,
+      hasNextPage: pageNumber < totalPages,
       totalPages: totalPages,
       total: totalResults,
     },

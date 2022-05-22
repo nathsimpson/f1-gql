@@ -1,11 +1,11 @@
+const { usePagination } = require("../../utils");
+
 // http://ergast.com/api/f1/status.json
 const Status = async (
   _source,
-  { input = { where: {}, pageInput: {} } },
+  { input: { where = {}, pageInput = {} } },
   { dataSources }
 ) => {
-  const where = input.where || {};
-  const pageInput = input.pageInput || {};
   const args = [];
 
   Object.keys(where)
@@ -14,19 +14,21 @@ const Status = async (
       args.push(`${arg}/${where[arg]}`);
     });
 
-  const page = pageInput.number || 1;
-  const limit = 30;
-  const offset = (page - 1) * limit;
+  const { paginationPath, pageNumber, resultsPerPageLimit } =
+    usePagination(pageInput);
 
-  const URL = `/f1/${
-    args.length ? `${args.join("/")}/` : ""
-  }status.json?limit=${limit}&offset=${offset}`;
+  const URL = [
+    "/f1/",
+    `${args.length ? `${args.join("/")}/` : ""}`,
+    "status.json",
+    paginationPath,
+  ].join("");
 
   console.log(`[ QUERY ]: ${URL}`);
   const { MRData } = await dataSources.f1API.get(URL);
 
   const totalResults = parseInt(MRData.total);
-  const totalPages = Math.ceil(totalResults / limit);
+  const totalPages = Math.ceil(totalResults / resultsPerPageLimit);
 
   const nodes = MRData.StatusTable.Status.map((t) => ({
     id: t.statusId,
@@ -37,7 +39,7 @@ const Status = async (
   return {
     nodes: nodes,
     pageInfo: {
-      hasNextPage: page < totalPages,
+      hasNextPage: pageNumber < totalPages,
       totalPages: totalPages,
       total: totalResults,
     },
