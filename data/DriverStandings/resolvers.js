@@ -1,4 +1,4 @@
-const { teamsColors } = require("../../utils");
+const { constructorColors } = require("../../utils");
 
 const DriverStandings = async (_source, { input = {} }, { dataSources }) => {
   const season = input.season || "current";
@@ -29,7 +29,7 @@ const DriverStandings = async (_source, { input = {} }, { dataSources }) => {
           name: c.Constructors[0].name,
           id: c.Constructors[0].constructorId,
           url: c.Constructors[0].url,
-          color: teamsColors[c.Constructors[0].name],
+          color: constructorColors[c.Constructors[0].name],
           nationality: c.Constructors[0].nationality,
         },
       };

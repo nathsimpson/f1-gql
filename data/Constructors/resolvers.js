@@ -1,4 +1,4 @@
-const { teamsColors } = require("../../utils");
+const { constructorColors } = require("../../utils");
 
 /** Get a list of Constructors */
 const Constructors = async (
@@ -47,7 +47,7 @@ const Constructors = async (
   const teams = MRData.ConstructorTable.Constructors.map((t) => ({
     ...t,
     id: t.constructorId,
-    color: teamsColors[t.name],
+    color: constructorColors[t.name],
   }));
 
   return {
@@ -75,7 +75,10 @@ const Constructor = async (_source, { id }, { dataSources }) => {
     throw new Error("Constructor was not found");
   }
 
-  return team;
+  return {
+    ...team,
+    color: constructorColors[team.name],
+  };
 };
 
 module.exports = { Constructor, Constructors };

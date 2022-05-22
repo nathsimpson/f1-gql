@@ -1,4 +1,4 @@
-const { teamsColors, getDriver } = require("../../utils");
+const { constructorColors, getDriver } = require("../../utils");
 
 const Results = async (_source, { input = {} }, { dataSources }) => {
   const season = input.season || "current";
@@ -32,7 +32,7 @@ const Results = async (_source, { input = {} }, { dataSources }) => {
         name: c.Constructor.name,
         id: c.Constructor.constructorId,
         url: c.Constructor.url,
-        color: teamsColors[c.Constructor.name],
+        color: constructorColors[c.Constructor.name],
         nationality: c.Constructor.nationality,
       },
       grid: c.grid,

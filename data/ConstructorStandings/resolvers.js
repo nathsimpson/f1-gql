@@ -1,4 +1,4 @@
-const { teamsColors } = require("../../utils");
+const { constructorColors } = require("../../utils");
 
 const ConstructorStandings = async (
   _source,
@@ -25,7 +25,7 @@ const ConstructorStandings = async (
           name: c.Constructor.name,
           id: c.Constructor.constructorId,
           url: c.Constructor.url,
-          color: teamsColors[c.Constructor.name],
+          color: constructorColors[c.Constructor.name],
           nationality: c.Constructor.nationality,
         },
       };
