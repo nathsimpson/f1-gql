@@ -12,6 +12,7 @@ const {
 } = require("./data/DriverStandings/typeDefs");
 const { typeDefs: Qualifying } = require("./data/Qualifying/typeDefs");
 const { typeDefs: Seasons } = require("./data/Seasons/typeDefs");
+const { typeDefs: Schedule } = require("./data/Schedule/typeDefs");
 
 const base = gql`
   type PageInfo {
@@ -69,6 +70,8 @@ const queries = gql`
     Seasons(input: SeasonsInput): SeasonsReport
     "A list of all finishing status codes used by the API"
     Status(input: StatusCodesInput): StatusCodesReport
+    "Schedule of races in a given season"
+    Schedule(input: ScheduleInput): ScheduleReport
   }
 `;
 
@@ -81,6 +84,7 @@ const typeDefs = [
   ConstructorStandings,
   DriverStandings,
   Qualifying,
+  Schedule,
   Seasons,
   queries,
 ];

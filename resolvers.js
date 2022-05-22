@@ -8,6 +8,7 @@ const { DriverStandings } = require("./data/DriverStandings/resolvers");
 const {
   ConstructorStandings,
 } = require("./data/ConstructorStandings/resolvers");
+const { Schedule } = require("./data/Schedule/resolvers");
 
 const resolvers = {
   Query: {
@@ -16,6 +17,7 @@ const resolvers = {
     Driver,
     Drivers,
     Results,
+    Schedule,
     Seasons,
     Status,
     QualifyingResults,
