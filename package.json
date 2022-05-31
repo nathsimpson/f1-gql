@@ -21,9 +21,9 @@
   "homepage": "https://github.com/nathsimpson/f1-gql#readme",
   "dependencies": {
     "apollo-datasource-rest": "^0.9.5",
-    "apollo-server": "^2.19.0",
+    "apollo-server": "^3.8.1",
     "dotenv": "^8.2.0",
-    "graphql": "^15.4.0"
+    "graphql": "^16.5.0"
   },
   "devDependencies": {
     "eslint": "^8.16.0",
