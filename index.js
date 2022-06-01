@@ -1,5 +1,4 @@
-const express = require("express");
-const { ApolloServer } = require("apollo-server-express");
+const { ApolloServer } = require("apollo-server");
 const { RESTDataSource } = require("apollo-datasource-rest");
 
 // LIB
@@ -13,18 +12,15 @@ class F1API extends RESTDataSource {
   }
 }
 
-const apollo = new ApolloServer({
+const server = new ApolloServer({
   typeDefs,
   resolvers,
+  csrfPrevention: true,
   dataSources: () => ({
     f1API: new F1API(),
   }),
 });
 
-const app = express();
-apollo.applyMiddleware({ app });
-
-app.listen({ port: 4000 }, () => {
-  console.log(`🏎  F1-GQL Server ready at port 4000`);
-  console.log(`🏎  http://localhost:4000${apollo.graphqlPath}`);
+server.listen().then(({ url }) => {
+  console.log(`🏎  Server ready at ${url}`);
 });
