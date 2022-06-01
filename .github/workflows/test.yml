@@ -40,11 +40,5 @@ jobs:
       - name: Unit tests
         run: yarn test
 
-      - name: Check types
-        run: yarn types
-
       - name: Lint
         run: yarn lint:eslint
-
-      - name: manypkg check
-        run: yarn manypkg check
