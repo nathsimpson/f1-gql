@@ -1,3 +1,5 @@
+const { getNationFlag } = require("./nationalityFlags");
+
 const getDriver = (driver) => ({
   // "alonso"
   id: driver.driverId,
@@ -15,6 +17,8 @@ const getDriver = (driver) => ({
   dateOfBirth: driver.dateOfBirth,
   // "Spanish"
   nationality: driver.nationality,
+  // Emoji of driver's home country
+  flag: getNationFlag(driver.nationality),
 });
 
 module.exports = { getDriver };

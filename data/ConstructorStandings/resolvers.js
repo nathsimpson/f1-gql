@@ -1,4 +1,4 @@
-const { constructorColors } = require("../../utils");
+const { constructorColors, getNationFlag } = require("../../utils");
 
 const ConstructorStandings = async (
   _source,
@@ -27,6 +27,7 @@ const ConstructorStandings = async (
           url: c.Constructor.url,
           color: constructorColors[c.Constructor.name],
           nationality: c.Constructor.nationality,
+          flag: getNationFlag(c.Constructor.nationality),
         },
       };
     }),

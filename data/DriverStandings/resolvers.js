@@ -1,4 +1,4 @@
-const { constructorColors } = require("../../utils");
+const { constructorColors, getNationFlag } = require("../../utils");
 
 const DriverStandings = async (_source, { input = {} }, { dataSources }) => {
   const season = input.season || "current";
@@ -25,12 +25,14 @@ const DriverStandings = async (_source, { input = {} }, { dataSources }) => {
         lastName: c.Driver.familyName,
         dateOfBirth: c.Driver.dateOfBirth,
         nationality: c.Driver.nationality,
+        flag: getNationFlag(c.Driver.nationality),
         team: {
           name: c.Constructors[0].name,
           id: c.Constructors[0].constructorId,
           url: c.Constructors[0].url,
           color: constructorColors[c.Constructors[0].name],
           nationality: c.Constructors[0].nationality,
+          flag: getNationFlag(c.Constructors[0].nationality),
         },
       };
     }),

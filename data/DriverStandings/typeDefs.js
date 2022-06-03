@@ -13,6 +13,8 @@ const typeDefs = gql`
     lastName: String
     dateOfBirth: String
     nationality: String
+    "An emoji of the driver's home flag"
+    flag: String
     team: Constructor
   }
 
