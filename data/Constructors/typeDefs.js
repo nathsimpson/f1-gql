@@ -8,6 +8,8 @@ const typeDefs = gql`
     "Team primary colour in HEX format. Not part of the Ergast database."
     color: String
     nationality: String
+    "An emoji of the constructor's home flag"
+    flag: String
   }
 
   type ConstructorsReport {

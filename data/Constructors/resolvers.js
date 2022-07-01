@@ -1,4 +1,5 @@
 const { constructorColors, usePagination } = require("../../utils");
+const { getNationFlag } = require("../../utils/nationalityFlags");
 
 /** Get a list of Constructors */
 const Constructors = async (
@@ -47,6 +48,7 @@ const Constructors = async (
     ...t,
     id: t.constructorId,
     color: constructorColors[t.name],
+    flag: getNationFlag(t.nationality),
   }));
 
   return {

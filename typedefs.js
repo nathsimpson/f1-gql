@@ -61,11 +61,15 @@ const queries = gql`
   type Query {
     Constructor(id: ID): Constructor
     Constructors(input: ConstructorsInput): ConstructorsReport
+    "Leaderboard for the Formula 1 Constructors Championship. Will return data from the latest race if not arguments sent."
     ConstructorStandings(input: ReportInput): ConstructorStandingsReport
     Driver(id: ID): Driver
+    "Leaderboard for the Formula 1 Drivers Championship. Will return data from the latest race if not arguments sent."
     DriverStandings(input: ReportInput): DriverStandingsReport
     Drivers(input: DriversInput): DriversReport
+    "Results from a qualifying session"
     QualifyingResults(input: ReportInput): Qualifying
+    "Race results report. Will return data from the latest race if not arguments sent."
     Results(input: ReportInput): Race
     Seasons(input: SeasonsInput): SeasonsReport
     "A list of all finishing status codes used by the API"

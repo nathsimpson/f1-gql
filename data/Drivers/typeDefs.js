@@ -16,6 +16,8 @@ const typeDefs = gql`
     dateOfBirth: String
     "Spanish"
     nationality: String
+    "An emoji of the driver's home flag"
+    flag: String
     "http://en.wikipedia.org/wiki/Fernando_Alonso"
     driverUrl: String
   }
